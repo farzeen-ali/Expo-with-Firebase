@@ -48,6 +48,9 @@ const Login = () => {
             className='bg-gray-100 text-black px-4 py-3 rounded-lg border border-gray-300'
           />
         </View>
+        <TouchableOpacity onPress={() => router.push('/forgot')}>
+          <Text className='text-xs text-right text-purple-600 font-medium mb-4'>Forgot Password?</Text>
+        </TouchableOpacity>
         <TouchableOpacity className='bg-purple-900 py-3 rounded-xl shadow-sm active:bg-purple-700' onPress={handleLogin}>
           <Text className='text-center text-white'>Login</Text>
         </TouchableOpacity>
