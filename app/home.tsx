@@ -18,6 +18,9 @@ const Home = () => {
     const gotTodo = () => {
         router.push('/todo');
     }
+    const handleTheme = () => {
+      router.push('/themeMode')
+    }
   return (
     <View className='flex-1 justify-center items-center bg-white px-6'>
       <View className='w-full max-w-sm bg-white p-6 rounded-2xl shadow-md border border-gray-100'>
@@ -28,6 +31,9 @@ const Home = () => {
       </TouchableOpacity>
       <TouchableOpacity onPress={handleLogout} className='w-full border border-gray-300 py-3 rounded-xl'>
         <Text className='text-center text-black font-medium text-base'>Logout</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleTheme} className='w-full border border-gray-300 py-3 rounded-xl'>
+        <Text className='text-center text-black font-medium text-base'>Theme Explore</Text>
       </TouchableOpacity>
       </View>
       
