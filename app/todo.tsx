@@ -1,16 +1,18 @@
 import { View, Text, Alert, TextInput, TouchableOpacity, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { addTodo, deleteTodo, getTodos, updateTodo } from '../db/todoService';
+// import { addTodo, deleteTodo, getTodos, updateTodo } from '../db/todoService';
+
+import { addTodo, deleteTodo, updateTodo, onTodosChanged } from '../db/realtime';
 
 const TodoApp = () => {
     const [todoText, setTodoText] = useState("");
     const [todos, setTodos] = useState<any[]>([]);
     const [editingId, setEditingId] = useState<string | null>(null);
 
-    const fetchTodos = async () => {
-        const data = await getTodos();
-        setTodos(data);
-    }
+    // const fetchTodos = async () => {
+    //     const data = await getTodos();
+    //     setTodos(data);
+    // }
 
     const handleAddOrUpdate = async () => {
         if(!todoText.trim) return;
@@ -23,7 +25,7 @@ const TodoApp = () => {
                 await addTodo(todoText);
             }
             setTodoText("")
-            fetchTodos();
+            // fetchTodos();
         } catch (error) {
             Alert.alert("Error","Something went wrong!");
         }
@@ -36,7 +38,7 @@ const TodoApp = () => {
     const handleDelete = async (id: string) => {
         try {
             await deleteTodo(id);
-            fetchTodos();
+            // fetchTodos();
         } catch (error) {
             Alert.alert("Delete Failed","Something went wrong!");
             
@@ -44,7 +46,12 @@ const TodoApp = () => {
     }
 
     useEffect(()=> {
-        fetchTodos();
+        // fetchTodos();
+        const unsubscribe = onTodosChanged((data) => {
+            setTodos(data);
+        })
+
+        return () => unsubscribe();
     }, []);
 
   return (
